@@ -2,8 +2,8 @@
 #include <ESPAsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 
-const char* ssid = "HP-Laser-Jet-Pro-2400XD";
-const char* password = "i2137Carly";
+const char* ssid = "***";
+const char* password = "***";
 
 const char* PARAM_INPUT = "value";
 
