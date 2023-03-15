@@ -1,20 +1,7 @@
-#include <ESP8266WiFi.h>
-#include <ESPAsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-
-const char* ssid = "***";
-const char* password = "***";
-
-const char* PARAM_INPUT = "value";
-
-AsyncWebServer server(80);
-
-IPAddress local_IP(192, 168, 0, 184);
-IPAddress gateway(192, 168, 0, 1);
-IPAddress subnet(255, 255, 255, 0);
-
 const char index_html[] PROGMEM = R"rawliteral(
-    <!DOCTYPE html>
+
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -181,6 +168,22 @@ const char index_html[] PROGMEM = R"rawliteral(
       <span>ESP8266 Remote</span>
     </div>
 
+    <div class="d-flex flex-row justify-content-center border-radius: 20px">
+      <div class="menu-grid">
+        <div id="p" class="d-flex  align-items-center" onclick="Clicked(this)">
+          <i class="fa-solid fa-cloud"></i>
+          <span class="label">Dim</span>
+        </div>
+        <div id="r" class="d-flex  align-items-center" onclick="Clicked(this)">
+          <span class="label">Backlight</span>
+        </div>
+        <div id="q" class="d-flex  align-items-center" onclick="Clicked(this)">
+          <i class="fa-solid fa-sun"></i>
+          <span class="label">Light</span>
+        </div>
+      </div>
+    </div>
+
     <div class="d-flex flex-row justify-content-center">
       <div class="menu-grid">
         <div id="a" class="d-flex flex-column align-items-center" onclick="Clicked(this)">
@@ -199,7 +202,6 @@ const char index_html[] PROGMEM = R"rawliteral(
     </div>
 
     <div class="d-flex flex-row mt-4 justify-content-between px-2">
-
       <div class="Round-button d-flex flex-column rounded-bg py-3 px-4 justify-content-center align-items-center">
         <div id="d" onclick="Clicked(this)">
           <i class="fab py-3 control-icon fa-youtube"></i>
@@ -256,6 +258,8 @@ const char index_html[] PROGMEM = R"rawliteral(
       </div>
     </div>
   </div>
+
+
   <script>
     function Clicked(element) {
       window.navigator = window.navigator || {};
@@ -272,36 +276,5 @@ const char index_html[] PROGMEM = R"rawliteral(
 </body>
 
 </html>
-    )rawliteral";
 
-
-void setup() {
-    Serial.begin(115200);
-    WiFi.config(local_IP,gateway,subnet);
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED) {
-        delay(1000);
-        //Serial.println("Connecting to WiFi..");
-    }
-
-    Serial.println(WiFi.localIP());
-
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
-        request->send_P(200, "text/html", index_html);
-        });
-
-    server.on("/data", HTTP_GET, [](AsyncWebServerRequest* request) {
-        String inputMessage;
-        if (request->hasParam(PARAM_INPUT)) {
-            inputMessage = request->getParam(PARAM_INPUT)->value();
-        }
-        else {
-            inputMessage = "No message sent";
-        }
-        Serial.println(inputMessage);
-        request->send(200, "text/plain", "OK");
-        });
-    server.begin();
-}
-void loop() {
-}
+)rawliteral";

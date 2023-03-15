@@ -35,6 +35,7 @@
 #define RECV_PIN 5
 #define SEND_PIN 3
 #define TVPP 4
+#define BL 6
 
 IRsend irsend;
 
@@ -46,6 +47,8 @@ void setup(){
 }
 
 bool tv = 1;
+bool backlight = 0;
+int light = 255;
 
 void loop(){
   if(Serial.available()){
@@ -53,6 +56,21 @@ void loop(){
           case(99):
           tv = !tv;
           digitalWrite(TVPP,tv);
+          break;
+
+          case(112):
+          light = constrain(light - 25,0,255);
+          analogWrite(BL,light);
+          break;
+
+          case(113):
+          light = constrain(light + 25,0,255);
+          analogWrite(BL,light);
+          break;
+
+          case(114):
+          backlight = !backlight;
+          analogWrite(BL,backlight * light);
           break;
           
           case(97):
