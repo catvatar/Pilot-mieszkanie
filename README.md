@@ -17,9 +17,12 @@ Pilocik na płytce był fajny ale miał sporo problemów, między innymi:\
 
 Każdy z tych problemów można było adresować pojedyńczo, zdecydowałem się jednak na inne rozwiązanie.\
 Postanowiłem przenieść diodę IR bezpośrednio pod telewizor i komunikować się z nią po lokalnym WiFi
-Ostateczne rozwiązanie składa się z dwóch części:\
-* Arduino które operuje diodą i symuluje pilot do telewizora\
-* ESP które hostuje stronę i rozkazuje arduino co ma robić\
+Ostateczne rozwiązanie składa się z dwóch części:
+* Arduino które operuje diodą i symuluje pilot do telewizora
+* ESP które hostuje stronę i rozkazuje arduino co ma robić
+
+<img src="Drugie-podejscie/pilot-online.jpg" width=300>
+
 ## Dodatkowe Udogodnienia
 Mając w pokoju permanentie działający serwer ESP skorzystałem z tego żeby rozwiązać parę innych powiązanych problemów:
 * Zasilacz w telewizorze wydaje cichy pisk, w ciągu dnia nie jest to problem ale w nocy doprawadzało mnie to do szału.
